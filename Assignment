@@ -1,0 +1,93 @@
+#include<stdio.h>
+#include<conio.h>
+#define e 0.05
+int b=1;
+int a;
+float funct1(float x)
+{
+    return(x*x-3*x+2);
+ }
+int* derivative(int *array, int n)
+{
+
+
+     for(a=1;a<=n;a++)
+     {
+            array[a]=a*array[a];
+      }
+     for(a=0;a<=n-1;a++)
+     {
+            array[a]=array[a+1];
+      }
+
+
+     return &(array[0]);
+ }
+float derivvalue(float x)
+{
+    return(2*x-3);
+  }
+int main(void)
+{
+    int a,n=2,array[3],*fx;
+    float fx0,fx1,x0=0,x3;
+    printf("\nEnter the coefficients of the given equation\n");
+    for(a=n;a>=0;a--)
+    {
+           scanf("%d",&array[a]);
+      }
+    printf("The equation you entered is:\n");
+    for(a=n;a>=0;a--)
+    {
+           if(array[a]>0)
+            {
+                 printf("+ ");
+              }
+            else
+                printf(" ");
+           printf("%dx^%d",array[a],a);
+       }
+    printf("\n\nThe derivative equation is:\n\n");
+    fx=derivative(array,n);
+    for(a=n-1;a>=0;a--)
+    {
+
+
+            if(fx[a]>0)
+            {
+                 printf("+ ");
+              }
+            else
+                printf(" ");
+            printf("%dx^%d",fx[a],a);
+
+
+      }
+    while(1)
+    {
+            printf("\n\nIteration %d\n",b++);
+            fx0=funct1(x0);
+            fx1=derivvalue(x0);
+
+
+            x3=x0-(fx0/fx1);
+            if((x3-x0)/x3<e)
+            {
+                    printf("\nThe root of the given equation is calculated to be\n%f",x3);
+                    break;
+              }
+            else
+            {
+                printf("\nx0=%f",x0);
+                x0=x3;
+              }
+            printf("\tfx0=%f\tfx1=%f\tx3=%f",fx0,fx1,x3);
+            printf("\n\n");
+    }
+
+
+    getch();
+    return 0;
+
+
+}
